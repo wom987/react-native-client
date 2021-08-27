@@ -3,6 +3,8 @@ import { Text, View, Modal } from "react-native";
 import RegularInput from "../Components/RegularInput";
 import RegularButton from "../Components/RegularButton";
 import GlobalStyles from "../Util/GlobalStyles";
+import RegularPicker from "../Components/RegularPicker";
+import RegularPickerNoDatabase from "../Components/RegularPickerNoDatabase";
 
 const ItemView = (props) => {
   let dataModal = props.visible;
@@ -28,10 +30,23 @@ const ItemView = (props) => {
           <RegularInput
             onChangeFunction={props.onChangeFunction}
             defaultValue={props.defaultValue}
-            label={"Nombre del menu:"}
+            label={"Nombre del Sub Menu:"}
             editable={props.editable}
           />
-         
+          <RegularPicker
+            pickerLabel={props.pickerLabel}
+            options={props.options}
+            onValueChange={props.onValue}
+            selectedValue={props.selectedValue}
+            enable={props.enable}
+          />
+          <RegularPickerNoDatabase
+            pickerLabel={props.pickerState}
+            options={props.state}
+            onValueChange={props.onValueState}
+            selectedValue={props.selectedState}
+            enable={props.enable}
+          />
         </View>
         <View style={GlobalStyles.actions}>
           <RegularButton

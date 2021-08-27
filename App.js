@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/Screens/LoginScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 import MenuScreen from "./src/Screens/MenuScreens";
+import SubMenuScreen from "./src/Screens/SubMenuScreen";
 export default function App() {
   //Drawer const
   const Drawer = createDrawerNavigator();
@@ -22,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName="Login"
+        initialRouteName="SubMenuScreen"
         screenOptions={{
           headerTitleAlign: "center",
           drawerLabelStyle: {
@@ -48,6 +49,11 @@ export default function App() {
           options={({ navigation }) => ({ unmountOnBlur: true }),{title:"Menu"}}
           name="MenuScreen"
           component={MenuScreen}
+        />
+        <Stack.Screen
+          options={({ navigation }) => ({ unmountOnBlur: true }),{title:"Sub Menu"}}
+          name="SubMenuScreen"
+          component={SubMenuScreen}
         />
       </Drawer.Navigator>
     </NavigationContainer>

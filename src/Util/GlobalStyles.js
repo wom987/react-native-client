@@ -109,7 +109,8 @@ export default StyleSheet.create({
     flexDirection: "row",
   },
   card_body_label: {
-    fontSize: 20,
+    marginTop: 20,
+    fontSize: fontSize,
   },
   card: {
     width: "auto",
@@ -131,4 +132,16 @@ export default StyleSheet.create({
   container_view: {
     margin: 20,
   },
+  regularPicker:{
+    width:"100%",
+    height:40,
+    padding:30,
+    marginTop:10,
+    marginBottom:10,
+    fontSize:35,
+    backgroundColor:"#e1e8ff"
+
+  },pickerItem:{
+    fontSize:fontSize
+  }
 });
