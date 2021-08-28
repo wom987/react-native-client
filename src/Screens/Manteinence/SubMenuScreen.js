@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   View,
@@ -6,29 +6,42 @@ import {
   LogBox,
   RefreshControl,
 } from "react-native";
-import GlobalStyles from "../Util/GlobalStyles";
-import RegularButton from "../Components/RegularButton";
-import ItemMenuView from "../Components/ItemMenuView";
-import MenuModal from "../Modals/MenuModal";
-const MenuScreen = ({ navigation, route }) => {
-  const API_URL = "http://192.168.56.1/restaurante_api/public/menu/";
+import GlobalStyles from "../../Util/GlobalStyles";
+import RegularButton from "../../Components/RegularButton";
+import ItemSubMenuView from "../../Components/Views/ItemSubMenuView";
+import SubMenuModal from "../../Modals/SubMenuModal";
+const SubMenuScreen = () => {
+  const API_URL = "http://192.168.56.1/restaurante_api/public/submenu/";
+
+  const API_URLM = "http://192.168.56.1/restaurante_api/public/menu/";
   LogBox.ignoreAllLogs();
   //states Variables
   const [nombre, setNombre] = useState("");
+  const [subMenus, setSubMenus] = useState();
   const [menus, setMenus] = useState();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadData, setLoadData] = useState(true);
+  const [state, setState] = useState("");
+  const [idMenu, setIdMenu] = useState("");
+  const states = {
+    Activo: "Activo",
+    "No Activo": "No Activo",
+  };
+
+  var menuData = "";
 
   useEffect(() => {
     if (loadData) {
-      fetch(API_URL)
+      fetch(API_URLM)
         .then((res) => res.json())
         .then((data) => setMenus(data));
-      if (menus) {
-        setIsLoading(false);
-      }
+
+      fetch(API_URL)
+        .then((res) => res.json())
+        .then((data) => setSubMenus(data));
+
       setLoadData(false);
     }
   }, [loadData]);
@@ -44,29 +57,35 @@ const MenuScreen = ({ navigation, route }) => {
     setVisible(false);
   };
   const sendDataLaravel = () => {
-    console.log(nombre);
-    try {
-      fetch(API_URL + "store", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre: nombre }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("agregado");
-          setLoadData(true);
-        });
-    } catch (error) {
-      console.log(error);
+    if (idMenu == "" || state == "") {
+      ToastAndroid.show("Seleccionar un valor!", ToastAndroid.SHORT);
+    } else {
+      try {
+        fetch(API_URL + "store", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre: nombre,
+            id_menu: idMenu,
+            estado: state,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+      setNombre(nombre);
+      setVisible(false);
     }
-    setNombre(nombre);
-    setVisible(false);
   };
 
   return (
     <View style={GlobalStyles.body}>
-      <MenuModal
-        titleModal={"Agregar Menu"}
+      <SubMenuModal
+        titleModal={"Agregar Sub Menu"}
         visible={visible}
         ShowEditModal={false}
         buttonTitle={"Agregar"}
@@ -77,6 +96,18 @@ const MenuScreen = ({ navigation, route }) => {
           setNombre(value);
         }}
         onPressFuncionEdit={sendDataLaravel}
+        state={states}
+        options={menus}
+        pickerState="Estado:"
+        selectedState={state}
+        onValueState={(itemValue, itemIndex) => {
+          setState(itemValue);
+        }}
+        pickerLabel={"Menus"}
+        selectedValue={idMenu}
+        onValue={(itemValue, itemIndex) => {
+          setIdMenu(itemValue);
+        }}
       />
       <ScrollView
         refreshControl={
@@ -85,18 +116,19 @@ const MenuScreen = ({ navigation, route }) => {
       >
         <FlatList
           numColumns={2}
-          data={menus}
+          data={subMenus}
           extraData={() => {
             updateData;
           }}
           renderItem={({ item }) => {
             if (item.eliminado === "false") {
               return (
-                <ItemMenuView
+                <ItemSubMenuView
                   itemId={item.id}
                   card_title={item.nombre}
-                  description={""}
+                  description={"Menu: "+item.menu_nombre+" \nEstado: "+item.estado}
                   onPressFuncion={updateData}
+                  options={menus}
                 />
               );
             } else {
@@ -118,5 +150,4 @@ const MenuScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
-export default MenuScreen;
+export default SubMenuScreen;

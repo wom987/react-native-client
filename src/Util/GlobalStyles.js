@@ -143,5 +143,19 @@ export default StyleSheet.create({
 
   },pickerItem:{
     fontSize:fontSize
+  },menuButton:{
+    height: "40%",
+    padding:60,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    backgroundColor: "#0275d8",
+    margin: 20,
+  },menuView:{
+    justifyContent:"center",
+    alignContent:"center",
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   }
 });

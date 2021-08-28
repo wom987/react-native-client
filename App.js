@@ -8,8 +8,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 //Screen  references
 import LoginScreen from "./src/Screens/LoginScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
-import MenuScreen from "./src/Screens/MenuScreens";
-import SubMenuScreen from "./src/Screens/SubMenuScreen";
+import MenuScreen from "./src/Screens/Manteinence/MenuScreens";
+import SubMenuScreen from "./src/Screens/Manteinence/SubMenuScreen";
 export default function App() {
   //Drawer const
   const Drawer = createDrawerNavigator();
@@ -22,8 +22,8 @@ export default function App() {
   });
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="SubMenuScreen"
+      <Stack.Navigator
+        initialRouteName="Home"
         screenOptions={{
           headerTitleAlign: "center",
           drawerLabelStyle: {
@@ -55,7 +55,7 @@ export default function App() {
           name="SubMenuScreen"
           component={SubMenuScreen}
         />
-      </Drawer.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
