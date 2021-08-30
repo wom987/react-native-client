@@ -55,7 +55,7 @@ const ItemUserView = (props) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Eliminado");
+          console.log(data);
         });
     } catch (error) {
       console.log(error);
@@ -81,7 +81,7 @@ const ItemUserView = (props) => {
       {/*Modals Components */}
       {/* Edit modal */}
       <MenuModal
-        titleModal={"Actualizar Menu"}
+        titleModal={"Actualizar Usuario"}
         visible={showEditModal}
         ShowEditModal={false}
         onChangeFunction={(value) => {
@@ -99,7 +99,7 @@ const ItemUserView = (props) => {
       />
       {/* Delete modal */}
       <MenuModal
-        titleModal={"Eliminar Menu"}
+        titleModal={"Eliminar Usuario"}
         visible={showDeleteModal}
         editable={false}
         ShowEditModal={false}

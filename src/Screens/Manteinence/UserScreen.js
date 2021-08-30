@@ -14,7 +14,7 @@ import UserModal from "../../Modals/UserModal";
 const UserScreen = () => {
   const API_URL = "http://192.168.56.1/restaurante_api/public/users/";
 
-  const API_URLM = "http://192.168.56.1/restaurante_api/public/rols/";
+  const API_URLM = "http://192.168.56.1/restaurante_api/public/menu/";
   LogBox.ignoreAllLogs();
   //states Variables
   const [nombre, setNombre] = useState("");
@@ -129,7 +129,7 @@ const UserScreen = () => {
                 
                   itemId={item.id}
                   card_title={item.name}
-                  description={"Rol: "+item.rol+" \nUsuario: "+item.username}
+                  description={"Rol: "+item.rol+" \nNOmbre de usuario: "+item.username}
                   onPressFuncion={updateData}
                   options={menus}
                 />
