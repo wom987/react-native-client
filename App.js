@@ -10,6 +10,7 @@ import LoginScreen from "./src/Screens/LoginScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 import MenuScreen from "./src/Screens/Manteinence/MenuScreens";
 import SubMenuScreen from "./src/Screens/Manteinence/SubMenuScreen";
+import MaintenenceScreen from "./src/Screens/MaintenenceScreen";
 export default function App() {
   //Drawer const
   const Drawer = createDrawerNavigator();
@@ -54,6 +55,11 @@ export default function App() {
           options={({ navigation }) => ({ unmountOnBlur: true }),{title:"Sub Menu"}}
           name="SubMenuScreen"
           component={SubMenuScreen}
+        />
+        <Stack.Screen
+          options={({ navigation }) => ({ unmountOnBlur: true }),{title:"Mantenimiento"}}
+          name="MaintenenceScreen"
+          component={MaintenenceScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
